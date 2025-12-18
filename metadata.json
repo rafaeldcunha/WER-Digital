@@ -1,0 +1,8 @@
+{
+  "name": "Protocolo Janeiro Ápice",
+  "description": "High-conversion landing page for a nutrition protocol, featuring AI-powered results visualization using Gemini Pro and Veo.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
