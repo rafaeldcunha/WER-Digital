@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Star } from 'lucide-react';
+import { Star, Quote } from 'lucide-react';
 import { Testimonial } from '../types';
 
 const testimonials: Testimonial[] = [
@@ -32,34 +32,42 @@ const testimonials: Testimonial[] = [
 
 const SocialProof: React.FC = () => {
   return (
-    <section className="py-32 px-6 bg-[#FAFAF9]">
+    <section id="resultados" className="py-32 px-6 bg-slate-950">
       <div className="max-w-7xl mx-auto">
-        <div className="mb-16">
-          <h2 className="text-4xl font-black tracking-tight mb-4">Aprovado por quem já fez</h2>
-          <div className="flex items-center gap-2">
-            <div className="flex">
+        <div className="mb-20 text-center md:text-left">
+          <h2 className="text-4xl md:text-7xl font-black tracking-tighter mb-6 text-white uppercase">Resultados de Impacto</h2>
+          <div className="flex flex-col md:flex-row items-center gap-6">
+            <div className="flex gap-1 bg-white/5 p-3 rounded-2xl border border-white/10">
                {[...Array(5)].map((_, i) => (
-                <Star key={i} className="w-5 h-5 text-emerald-500 fill-current" />
+                <Star key={i} className="w-6 h-6 text-emerald-400 fill-current" />
               ))}
             </div>
-            <span className="font-bold text-gray-500 text-sm">Mais de 5.000 vidas transformadas</span>
+            <span className="font-bold text-slate-400 text-lg uppercase tracking-widest">+5.000 VIDAS TRANSFORMADAS ESTE ANO</span>
           </div>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
           {testimonials.map((t) => (
-            <div key={t.id} className="p-10 rounded-[2.5rem] bg-white border border-gray-100 shadow-[0_15px_40px_-15px_rgba(0,0,0,0.05)] hover:shadow-[0_25px_60px_-15px_rgba(0,0,0,0.1)] transition-all duration-500 group">
-              <div className="flex gap-5 items-center mb-8">
-                <div className="relative">
-                  <div className="absolute -inset-1 bg-emerald-500 rounded-full blur opacity-0 group-hover:opacity-30 transition duration-500"></div>
-                  <img src={t.image} alt={t.name} className="relative w-16 h-16 rounded-full object-cover ring-2 ring-white" loading="lazy" />
+            <div key={t.id} className="p-1 liquid-glass rounded-[3rem] border border-white/10 transition-all hover:scale-[1.02]">
+              <div className="bg-slate-900/50 p-10 rounded-[2.8rem] h-full flex flex-col relative">
+                <div className="absolute top-10 right-10 opacity-10">
+                  <Quote className="w-16 h-16 text-emerald-400" />
                 </div>
-                <div>
-                  <h4 className="font-black text-lg text-gray-900">{t.name}</h4>
-                  <p className="text-gray-400 text-xs font-bold uppercase tracking-widest">{t.location}</p>
+                <div className="flex gap-5 items-center mb-10">
+                  <div className="relative">
+                    <div className="absolute -inset-2 bg-emerald-500 rounded-full blur opacity-20"></div>
+                    <img src={t.image} alt={t.name} className="relative w-20 h-20 rounded-2xl object-cover ring-2 ring-emerald-500/20" loading="lazy" />
+                  </div>
+                  <div>
+                    <h4 className="font-black text-xl text-white">{t.name}</h4>
+                    <p className="text-emerald-400 text-[10px] font-black uppercase tracking-widest mt-1">{t.location}</p>
+                  </div>
+                </div>
+                <p className="text-slate-200 text-lg leading-relaxed font-medium italic grow">"{t.comment}"</p>
+                <div className="mt-8 flex gap-1">
+                   {[...Array(5)].map((_, i) => <Star key={i} className="w-3 h-3 text-emerald-500 fill-current" />)}
                 </div>
               </div>
-              <p className="text-gray-600 leading-relaxed font-medium">"{t.comment}"</p>
             </div>
           ))}
         </div>

@@ -26,30 +26,32 @@ const FAQ: React.FC = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <section id="faq" className="py-32 px-6 bg-slate-950">
+    <section id="faq" className="py-32 px-6 bg-[#020617]">
       <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-16">
-          <span className="text-emerald-400 font-bold text-[10px] tracking-[0.3em] uppercase mb-4 block">Suporte</span>
-          <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight">Perguntas Frequentes</h2>
+        <div className="text-center mb-20">
+          <span className="text-emerald-400 font-black text-[10px] tracking-[0.4em] uppercase mb-4 block">Central de Ajuda</span>
+          <h2 className="text-4xl md:text-6xl font-black text-white tracking-tighter">PERGUNTAS FREQUENTES</h2>
         </div>
         
-        <div className="space-y-4">
+        <div className="space-y-6">
           {faqItems.map((item, index) => (
-            <div key={index} className="liquid-glass rounded-3xl border border-white/5 overflow-hidden transition-all">
+            <div key={index} className="liquid-glass rounded-[2rem] border border-white/10 overflow-hidden transition-all bg-slate-900/40">
               <button 
                 onClick={() => setOpenIndex(openIndex === index ? null : index)}
-                className="w-full p-8 flex items-center justify-between text-left hover:bg-white/5 transition-colors group"
+                className="w-full p-8 flex items-center justify-between text-left hover:bg-white/5 transition-all group"
               >
-                <span className={`font-bold text-lg md:text-xl transition-colors ${openIndex === index ? 'text-emerald-400' : 'text-white'}`}>
+                <span className={`font-black text-xl md:text-2xl transition-colors ${openIndex === index ? 'text-emerald-400' : 'text-white'}`}>
                   {item.question}
                 </span>
-                <div className={`w-8 h-8 rounded-full flex items-center justify-center transition-all ${openIndex === index ? 'bg-emerald-500 text-white' : 'bg-white/5 text-white/40'}`}>
-                  {openIndex === index ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
+                <div className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all ${openIndex === index ? 'bg-emerald-500 text-white shadow-lg shadow-emerald-500/30' : 'bg-white/5 text-white/40 border border-white/10'}`}>
+                  {openIndex === index ? <ChevronUp className="w-6 h-6" /> : <ChevronDown className="w-6 h-6" />}
                 </div>
               </button>
               {openIndex === index && (
-                <div className="px-8 pb-8 text-slate-300 leading-relaxed text-lg border-t border-white/5 pt-6 animate-in slide-in-from-top-2 duration-300">
-                  {item.answer}
+                <div className="px-8 pb-10 text-slate-100 leading-relaxed text-lg md:text-xl border-t border-white/10 pt-8 animate-in slide-in-from-top-4 duration-500">
+                  <p className="font-medium bg-emerald-500/5 p-6 rounded-2xl border border-emerald-500/10">
+                    {item.answer}
+                  </p>
                 </div>
               )}
             </div>

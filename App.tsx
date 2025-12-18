@@ -8,14 +8,16 @@ import SocialProof from './components/SocialProof';
 import FAQ from './components/FAQ';
 import Footer from './components/Footer';
 import AISection from './components/AISection';
+import MethodPage from './components/MethodPage';
+import ResultsPage from './components/ResultsPage';
 import { MessageCircle, ArrowRight } from 'lucide-react';
 
 const App: React.FC = () => {
   const [showStickyCta, setShowStickyCta] = useState(false);
+  const [currentView, setCurrentView] = useState<'home' | 'method' | 'results'>('home');
 
   useEffect(() => {
     const handleScroll = () => {
-      // Show based on percentage or pixel
       if (window.scrollY > 450) {
         setShowStickyCta(true);
       } else {
@@ -27,51 +29,79 @@ const App: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [currentView]);
+
+  const navigateTo = (view: 'home' | 'method' | 'results', anchor?: string) => {
+    setCurrentView(view);
+    if (anchor) {
+      setTimeout(() => {
+        const element = document.getElementById(anchor);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    }
+  };
+
   return (
     <div className="min-h-screen relative overflow-x-hidden bg-[#020617] selection:bg-emerald-500/30 text-slate-100">
-      <Header />
+      <Header onNavigate={navigateTo} currentView={currentView} />
       
-      <main className="relative z-10">
-        <Hero />
-        
-        {/* Apple style sub-bar sticky under the header or top of screen */}
-        <div className="bg-emerald-600/90 backdrop-blur-xl py-4 px-4 text-center text-white text-[10px] font-black tracking-[0.3em] uppercase sticky top-0 z-40 shadow-2xl border-b border-emerald-400/20">
-          Inscrições abertas para o grupo de Janeiro. <span className="hidden sm:inline">Últimas 12 vagas com 50% de bônus.</span>
-        </div>
+      <main className="relative z-10 pt-20">
+        {currentView === 'home' && (
+          <>
+            <Hero />
+            
+            <div className="bg-emerald-600/90 backdrop-blur-xl py-4 px-4 text-center text-white text-[10px] font-black tracking-[0.3em] uppercase sticky top-20 z-40 shadow-2xl border-b border-emerald-400/20">
+              Inscrições abertas para o grupo de Janeiro. <span className="hidden sm:inline">Últimas 12 vagas com 50% de bônus.</span>
+            </div>
 
-        <section id="metodo">
-           <Comparison />
-        </section>
+            <section id="comparacao">
+               <Comparison />
+            </section>
 
-        {/* Dynamic AI Background Section */}
-        <section className="relative py-32 px-6 overflow-hidden">
-          <div className="absolute inset-0 z-0">
-             <img 
-               src="https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&q=80&w=2000" 
-               className="w-full h-full object-cover opacity-10 grayscale-[100%] parallax-bg"
-               alt="Cooking Ingredients"
-             />
-             <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-950/80 to-slate-950"></div>
-          </div>
-          <div className="max-w-7xl mx-auto relative z-10 liquid-glass rounded-[4rem] shadow-3xl border border-white/5 overflow-hidden">
-            <AISection />
-          </div>
-        </section>
+            <section className="relative py-32 px-6 overflow-hidden">
+              <div className="absolute inset-0 z-0">
+                 <img 
+                   src="https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&q=80&w=2000" 
+                   className="w-full h-full object-cover opacity-10 grayscale-[100%] parallax-bg"
+                   alt="Cooking Ingredients"
+                 />
+                 <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-950/80 to-slate-950"></div>
+              </div>
+              <div className="max-w-7xl mx-auto relative z-10 liquid-glass rounded-[4rem] shadow-3xl border border-white/5 overflow-hidden">
+                <AISection />
+              </div>
+            </section>
 
-        <SocialProof />
-        
-        <div className="bg-slate-950 rounded-t-[6rem] shadow-[0_-50px_100px_rgba(0,0,0,0.8)] mt-20">
-          <Authority />
-          <FAQ />
-          <Footer />
-        </div>
+            <SocialProof />
+            
+            <div className="bg-slate-950 rounded-t-[6rem] shadow-[0_-50px_100px_rgba(0,0,0,0.8)] mt-20">
+              <Authority />
+              <div id="faq">
+                <FAQ />
+              </div>
+              <Footer onNavigate={navigateTo} />
+            </div>
+          </>
+        )}
+
+        {currentView === 'method' && (
+          <MethodPage onNavigate={navigateTo} />
+        )}
+
+        {currentView === 'results' && (
+          <ResultsPage onNavigate={navigateTo} />
+        )}
       </main>
 
       {/* Apple-style Blurred Bottom Bar */}
       <div className={`fixed bottom-0 left-0 right-0 z-50 transition-all duration-1000 transform ${showStickyCta ? 'translate-y-0' : 'translate-y-full'}`}>
         <div className="apple-blur-bar w-full py-6 px-8 flex items-center justify-center">
           <div className="max-w-7xl w-full flex flex-col md:flex-row items-center justify-between gap-6">
-            <div className="hidden md:block">
+            <div className="hidden md:block text-left">
               <p className="text-white font-black text-xl tracking-tighter">Protocolo Janeiro Ápice 2.0</p>
               <p className="text-emerald-400 text-[10px] font-black uppercase tracking-widest mt-1">Sua transformação começa agora</p>
             </div>
