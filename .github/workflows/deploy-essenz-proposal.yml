@@ -1,0 +1,27 @@
+name: Deploy Essenz Proposal to Netlify
+
+on:
+  push:
+    branches: [claude/essenz-proposal-html-4aURA]
+    paths:
+      - proposta-essenz-wer.html
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Prepare deploy directory
+        run: |
+          mkdir -p dist
+          cp proposta-essenz-wer.html dist/index.html
+
+      - name: Deploy to Netlify
+        uses: netlify/actions/cli@master
+        with:
+          args: deploy --prod --dir=dist --message "Proposta Essenz × WER Digital"
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
