@@ -28,38 +28,42 @@ def fetch_essenz_logo():
         print(f"[WARN] Could not fetch Essenz logo: {e}. Using SVG placeholder.")
         return None
 
-# ── WER Digital logo SVG (brand-accurate inline SVG) ─────────────────────────
-WER_LOGO_SVG = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="64" height="64">
+# ── WER Digital logo SVG — W orgânico roxo/azul (fiel ao avatar fornecido) ───
+WER_LOGO_SVG = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
   <defs>
-    <linearGradient id="wg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#047AFF"/>
-      <stop offset="100%" stop-color="#64CBFF"/>
+    <linearGradient id="wbg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2D0EA8"/>
+      <stop offset="50%" stop-color="#5B21B6"/>
+      <stop offset="100%" stop-color="#7C3AED"/>
     </linearGradient>
   </defs>
-  <circle cx="60" cy="60" r="58" fill="#111111" stroke="url(#wg)" stroke-width="2.5"/>
-  <text x="60" y="73" font-family="Arial Black, sans-serif" font-size="36" font-weight="900"
-        fill="url(#wg)" text-anchor="middle" letter-spacing="-1">WER</text>
+  <rect width="200" height="200" rx="44" fill="url(#wbg)"/>
+  <path d="M38 65
+           C38 65 52 65 58 80
+           L78 128
+           C80 133 84 133 86 128
+           L96 100
+           C98 95 102 95 104 100
+           L114 128
+           C116 133 120 133 122 128
+           L142 80
+           C148 65 162 65 162 65"
+        fill="none" stroke="#E8E4F0" stroke-width="22"
+        stroke-linecap="round" stroke-linejoin="round"/>
 </svg>"""
 
 WER_LOGO_B64 = "data:image/svg+xml;base64," + base64.b64encode(WER_LOGO_SVG.encode()).decode()
 
-# ── Essenz logo fallback SVG — elegant brand-aligned emblem ──────────────────
-ESSENZ_LOGO_FALLBACK_SVG = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 80">
-  <defs>
-    <linearGradient id="eg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#2C3E6B"/>
-      <stop offset="100%" stop-color="#4A6FA5"/>
-    </linearGradient>
-  </defs>
-  <!-- diamond mark -->
-  <polygon points="28,12 46,40 28,68 10,40" fill="none" stroke="url(#eg)" stroke-width="2.5"/>
-  <polygon points="28,22 38,40 28,58 18,40" fill="url(#eg)" opacity="0.35"/>
-  <!-- wordmark -->
-  <text x="60" y="48" font-family="Georgia, 'Times New Roman', serif" font-size="34"
-        font-weight="700" fill="#1A2744" letter-spacing="3" text-anchor="start">essenz</text>
-  <!-- tagline -->
-  <text x="62" y="64" font-family="Arial, sans-serif" font-size="10"
-        font-weight="400" fill="#6B7FA3" letter-spacing="4" text-anchor="start">CURADORIA IMOBILIÁRIA</text>
+# ── Essenz logo SVG — casa outline dourada + wordmark serif (fiel ao original) ─
+ESSENZ_LOGO_FALLBACK_SVG = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 110">
+  <g fill="none" stroke="#B8922A" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round">
+    <polygon points="54,22 96,58 96,96 12,96 12,58" stroke-width="3.5"/>
+    <polyline points="4,62 54,18 104,62"/>
+  </g>
+  <text x="124" y="76" font-family="Georgia,'Times New Roman',serif" font-size="58"
+        font-weight="700" fill="#B8922A" letter-spacing="2">ESSENZ</text>
+  <text x="127" y="100" font-family="Arial,Helvetica,sans-serif" font-size="13.5"
+        font-weight="400" fill="#B8922A" letter-spacing="5.5">CURADORIA IMOBILIÁRIA</text>
 </svg>"""
 ESSENZ_LOGO_FALLBACK_B64 = "data:image/svg+xml;base64," + base64.b64encode(ESSENZ_LOGO_FALLBACK_SVG.encode()).decode()
 
@@ -898,8 +902,7 @@ section {{ position: relative; overflow: hidden; }}
         </div>
         <h3>10 Roteiros de Vídeo</h3>
         <div class="svc-price-row">
-          <span class="svc-price">R$&nbsp;0</span>
-          <span class="svc-period">/mês</span>
+          <span class="svc-price">Bonificado</span>
         </div>
         <p class="svc-desc">Todo mês, 10 roteiros de vídeo prontos para conteúdo orgânico no Instagram e TikTok — estratégia de conteúdo alinhada ao posicionamento premium da Essenz.</p>
         <ul class="svc-includes">
@@ -1003,7 +1006,7 @@ section {{ position: relative; overflow: hidden; }}
             <span class="badge-bonus">BÔNUS</span>
           </div>
           <div class="sim-bonus-price-row">
-            <span class="sim-bonus-free">R$ 0</span>
+            <span class="sim-bonus-free">Bonificado</span>
           </div>
           <div class="sim-bonus-desc">Roteiros mensais de vídeo para conteúdo orgânico. Gravação e edição por conta do cliente.</div>
         </div>
@@ -1032,6 +1035,10 @@ section {{ position: relative; overflow: hidden; }}
       <div class="total-row">
         <span class="total-label">Investimento único (setup)</span>
         <span class="total-value zero" id="total-setup">—</span>
+      </div>
+      <div class="total-row">
+        <span class="total-label">10 Roteiros/mês <span class="badge-bonus" style="font-size:.6rem;padding:.15rem .5rem">BÔNUS</span></span>
+        <span class="total-value-zero-label">Bonificado</span>
       </div>
       <div class="total-row" id="bonus-lp-row">
         <span class="total-label">Landing Page <span class="badge-bonus" style="font-size:.6rem;padding:.15rem .5rem">BÔNUS</span></span>
