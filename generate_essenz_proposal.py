@@ -1,10 +1,15 @@
 #!/usr/bin/env python3
 """Generator for Essenz Imóveis commercial proposal HTML.
 
-Uso local (com imagens reais):
-    python3 generate_essenz_proposal.py --essenz logo-essenz.png --wer logo-wer.png
+Coloque os logos em images/ e rode sem argumentos:
+    python3 generate_essenz_proposal.py
 
-Sem argumentos: usa SVGs gerados como fallback.
+Ou passe caminhos explícitos:
+    python3 generate_essenz_proposal.py --essenz images/logo-essenz.png --wer images/logo-wer.png
+
+Arquivos padrão esperados:
+    images/logo-essenz.{png,webp,svg,jpg}
+    images/logo-wer.{png,webp,svg,jpg}
 """
 
 import argparse
@@ -1336,26 +1341,41 @@ def image_to_b64(path: str) -> str:
         return f"data:{mime};base64,{base64.b64encode(f.read()).decode()}"
 
 
+IMAGES_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "images")
+LOGO_EXTENSIONS = ["png", "webp", "jpg", "jpeg", "svg"]
+
+
+def find_in_images(name: str) -> str | None:
+    """Return path of first matching file in images/ dir, or None."""
+    for ext in LOGO_EXTENSIONS:
+        path = os.path.join(IMAGES_DIR, f"{name}.{ext}")
+        if os.path.isfile(path):
+            return path
+    return None
+
+
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--essenz", metavar="ARQUIVO", help="Caminho para o logo da Essenz (png/webp/svg)")
-    parser.add_argument("--wer",    metavar="ARQUIVO", help="Caminho para o logo da WER Digital (png/webp/svg)")
+    parser.add_argument("--essenz", metavar="ARQUIVO", help="Caminho para o logo da Essenz (padrão: images/logo-essenz.*)")
+    parser.add_argument("--wer",    metavar="ARQUIVO", help="Caminho para o logo da WER Digital (padrão: images/logo-wer.*)")
     parser.add_argument("--out",    metavar="ARQUIVO", default="proposta-essenz-wer.html", help="Nome do arquivo de saída")
     args = parser.parse_args()
 
-    if args.wer:
-        print(f"WER logo: {args.wer}")
-        wer_b64 = image_to_b64(args.wer)
+    wer_path = args.wer or find_in_images("logo-wer")
+    if wer_path:
+        print(f"WER logo: {wer_path}")
+        wer_b64 = image_to_b64(wer_path)
     else:
-        print("WER logo: usando SVG gerado")
+        print("WER logo: images/logo-wer.* não encontrado — usando SVG gerado")
         wer_b64 = WER_LOGO_B64
 
-    if args.essenz:
-        print(f"Essenz logo: {args.essenz}")
-        essenz_b64 = image_to_b64(args.essenz)
+    essenz_path = args.essenz or find_in_images("logo-essenz")
+    if essenz_path:
+        print(f"Essenz logo: {essenz_path}")
+        essenz_b64 = image_to_b64(essenz_path)
     else:
-        print("Essenz logo: tentando download...")
-        essenz_b64 = fetch_essenz_logo() or ESSENZ_LOGO_FALLBACK_B64
+        print("Essenz logo: images/logo-essenz.* não encontrado — usando SVG gerado")
+        essenz_b64 = ESSENZ_LOGO_FALLBACK_B64
 
     print("Gerando HTML...")
     html = build_html(essenz_b64, wer_b64)

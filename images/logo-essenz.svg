@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 110">
+  <g fill="none" stroke="#B8922A" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round">
+    <polygon points="54,22 96,58 96,96 12,96 12,58" stroke-width="3.5"/>
+    <polyline points="4,62 54,18 104,62"/>
+  </g>
+  <text x="124" y="76" font-family="Georgia,'Times New Roman',serif" font-size="58"
+        font-weight="700" fill="#B8922A" letter-spacing="2">ESSENZ</text>
+  <text x="127" y="100" font-family="Arial,Helvetica,sans-serif" font-size="13.5"
+        font-weight="400" fill="#B8922A" letter-spacing="5.5">CURADORIA IMOBILIÁRIA</text>
+</svg>
