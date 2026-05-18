@@ -82,9 +82,9 @@ ESSENZ_LOGO_FALLBACK_SVG = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0
 ESSENZ_LOGO_FALLBACK_B64 = "data:image/svg+xml;base64," + base64.b64encode(ESSENZ_LOGO_FALLBACK_SVG.encode()).decode()
 
 
-def build_html(essenz_logo_b64: str, wer_logo_b64: str = None) -> str:
-    if wer_logo_b64 is None:
-        wer_logo_b64 = WER_LOGO_B64
+def build_html(essenz_logo_src: str, wer_logo_src: str) -> str:
+    essenz_logo_b64 = essenz_logo_src  # kept for compat; variable used in template
+    wer_logo_b64 = wer_logo_src
     return f"""<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -1361,30 +1361,37 @@ def main():
     parser.add_argument("--out",    metavar="ARQUIVO", default="proposta-essenz-wer.html", help="Nome do arquivo de saída")
     args = parser.parse_args()
 
-    wer_path = args.wer or find_in_images("logo-wer")
-    if wer_path:
-        print(f"WER logo: {wer_path}")
-        wer_b64 = image_to_b64(wer_path)
+    wer_file = args.wer or find_in_images("logo-wer")
+    if wer_file:
+        wer_filename = os.path.basename(wer_file)
+        wer_src = f"images/{wer_filename}"
+        print(f"WER logo: {wer_file} → {wer_src}")
     else:
-        print("WER logo: images/logo-wer.* não encontrado — usando SVG gerado")
-        wer_b64 = WER_LOGO_B64
+        print("WER logo: images/logo-wer.* não encontrado — usando SVG inline")
+        wer_src = WER_LOGO_B64
 
-    essenz_path = args.essenz or find_in_images("logo-essenz")
-    if essenz_path:
-        print(f"Essenz logo: {essenz_path}")
-        essenz_b64 = image_to_b64(essenz_path)
+    essenz_file = args.essenz or find_in_images("logo-essenz")
+    if essenz_file:
+        essenz_filename = os.path.basename(essenz_file)
+        essenz_src = f"images/{essenz_filename}"
+        print(f"Essenz logo: {essenz_file} → {essenz_src}")
     else:
-        print("Essenz logo: images/logo-essenz.* não encontrado — usando SVG gerado")
-        essenz_b64 = ESSENZ_LOGO_FALLBACK_B64
+        print("Essenz logo: images/logo-essenz.* não encontrado — usando SVG inline")
+        essenz_src = ESSENZ_LOGO_FALLBACK_B64
 
     print("Gerando HTML...")
-    html = build_html(essenz_b64, wer_b64)
+    html = build_html(essenz_src, wer_src)
 
-    with open(args.out, "w", encoding="utf-8") as f:
+    out_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), args.out)
+    with open(out_path, "w", encoding="utf-8") as f:
         f.write(html)
 
     size_kb = len(html.encode()) / 1024
-    print(f"Pronto! {args.out} ({size_kb:.1f} KB)")
+    print(f"Pronto! {out_path} ({size_kb:.1f} KB)")
+    print()
+    print("Para fazer upload no Netlify, suba a pasta inteira ou um zip com:")
+    print("  index.html  (renomeie proposta-essenz-wer.html)")
+    print("  images/     (pasta com os logos)")
 
 
 if __name__ == "__main__":
