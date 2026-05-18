@@ -1,7 +1,16 @@
 #!/usr/bin/env python3
-"""Generator for Essenz Imóveis commercial proposal HTML."""
+"""Generator for Essenz Imóveis commercial proposal HTML.
 
+Uso local (com imagens reais):
+    python3 generate_essenz_proposal.py --essenz logo-essenz.png --wer logo-wer.png
+
+Sem argumentos: usa SVGs gerados como fallback.
+"""
+
+import argparse
 import base64
+import mimetypes
+import os
 import urllib.request
 import urllib.error
 import ssl
@@ -68,7 +77,9 @@ ESSENZ_LOGO_FALLBACK_SVG = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0
 ESSENZ_LOGO_FALLBACK_B64 = "data:image/svg+xml;base64," + base64.b64encode(ESSENZ_LOGO_FALLBACK_SVG.encode()).decode()
 
 
-def build_html(essenz_logo_b64: str) -> str:
+def build_html(essenz_logo_b64: str, wer_logo_b64: str = None) -> str:
+    if wer_logo_b64 is None:
+        wer_logo_b64 = WER_LOGO_B64
     return f"""<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -693,7 +704,7 @@ section {{ position: relative; overflow: hidden; }}
 
     <div class="reveal hero-logos">
       <div class="hero-logo-wer">
-        <img src="{WER_LOGO_B64}" alt="WER Digital"/>
+        <img src="{wer_logo_b64}" alt="WER Digital"/>
       </div>
       <div class="hero-logo-divider"></div>
       <div class="hero-logo-essenz">
@@ -1201,7 +1212,7 @@ section {{ position: relative; overflow: hidden; }}
   <div class="container">
     <div class="footer-inner">
       <div class="footer-logo">
-        <img src="{WER_LOGO_B64}" alt="WER Digital"/>
+        <img src="{wer_logo_b64}" alt="WER Digital"/>
       </div>
       <div class="footer-divider"></div>
       <p class="footer-tagline">Estratégias digitais, resultados reais.</p>
@@ -1315,20 +1326,45 @@ function updateTotal() {{
 </html>"""
 
 
+def image_to_b64(path: str) -> str:
+    mime, _ = mimetypes.guess_type(path)
+    if not mime:
+        ext = os.path.splitext(path)[1].lower()
+        mime = {"png": "image/png", "jpg": "image/jpeg", "jpeg": "image/jpeg",
+                "webp": "image/webp", "svg": "image/svg+xml"}.get(ext.lstrip("."), "image/png")
+    with open(path, "rb") as f:
+        return f"data:{mime};base64,{base64.b64encode(f.read()).decode()}"
+
+
 def main():
-    print("Fetching Essenz logo...")
-    essenz_b64 = fetch_essenz_logo() or ESSENZ_LOGO_FALLBACK_B64
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--essenz", metavar="ARQUIVO", help="Caminho para o logo da Essenz (png/webp/svg)")
+    parser.add_argument("--wer",    metavar="ARQUIVO", help="Caminho para o logo da WER Digital (png/webp/svg)")
+    parser.add_argument("--out",    metavar="ARQUIVO", default="proposta-essenz-wer.html", help="Nome do arquivo de saída")
+    args = parser.parse_args()
 
-    print("Building HTML...")
-    html = build_html(essenz_b64)
+    if args.wer:
+        print(f"WER logo: {args.wer}")
+        wer_b64 = image_to_b64(args.wer)
+    else:
+        print("WER logo: usando SVG gerado")
+        wer_b64 = WER_LOGO_B64
 
-    out = "/home/user/WER-Digital/proposta-essenz-wer.html"
-    with open(out, "w", encoding="utf-8") as f:
+    if args.essenz:
+        print(f"Essenz logo: {args.essenz}")
+        essenz_b64 = image_to_b64(args.essenz)
+    else:
+        print("Essenz logo: tentando download...")
+        essenz_b64 = fetch_essenz_logo() or ESSENZ_LOGO_FALLBACK_B64
+
+    print("Gerando HTML...")
+    html = build_html(essenz_b64, wer_b64)
+
+    with open(args.out, "w", encoding="utf-8") as f:
         f.write(html)
 
     size_kb = len(html.encode()) / 1024
-    print(f"Done! File: {out}")
-    print(f"Size: {size_kb:.1f} KB")
+    print(f"Pronto! {args.out} ({size_kb:.1f} KB)")
 
 
 if __name__ == "__main__":
