@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 
 const ASSETS = "/assets/store";
@@ -149,12 +151,30 @@ function ProductCards() {
   ];
 
   return (
-    <div className="grid grid-cols-2 gap-4">
+    <div className="grid grid-cols-2 gap-5 md:gap-6">
       {products.map((p) => (
         <article
           key={p.id}
-          className="relative rounded-xl overflow-hidden bg-black/40 border border-white/10 aspect-[3/4]"
-          style={{ backdropFilter: "blur(4px)" }}
+          className="relative rounded-2xl overflow-hidden aspect-[3/4] cursor-pointer"
+          style={{
+            background: "rgba(8, 18, 8, 0.55)",
+            backdropFilter: "blur(14px) saturate(1.4)",
+            WebkitBackdropFilter: "blur(14px) saturate(1.4)",
+            border: "1px solid rgba(140, 230, 0, 0.28)",
+            boxShadow:
+              "0 0 0 1px rgba(140,230,0,0.06), inset 0 1px 0 rgba(140,230,0,0.12)",
+            transition: "transform 0.25s cubic-bezier(.2,.7,.2,1), box-shadow 0.25s ease",
+          }}
+          onMouseEnter={e => {
+            (e.currentTarget as HTMLElement).style.transform = "scale(1.03)";
+            (e.currentTarget as HTMLElement).style.boxShadow =
+              "0 0 24px rgba(140,230,0,0.25), 0 0 48px rgba(140,230,0,0.1), inset 0 1px 0 rgba(140,230,0,0.2)";
+          }}
+          onMouseLeave={e => {
+            (e.currentTarget as HTMLElement).style.transform = "scale(1)";
+            (e.currentTarget as HTMLElement).style.boxShadow =
+              "0 0 0 1px rgba(140,230,0,0.06), inset 0 1px 0 rgba(140,230,0,0.12)";
+          }}
         >
           <div className="absolute inset-0">
             <Image
