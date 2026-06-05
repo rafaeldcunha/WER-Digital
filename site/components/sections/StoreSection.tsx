@@ -98,6 +98,56 @@ export function StoreSection() {
               />
             </div>
 
+            {/* ── Fumaça verde atrás da moto (z-index entre watermark e moto) ── */}
+            <div className="absolute inset-0 z-[25] pointer-events-none" aria-hidden="true">
+              {/* Nuvem 1 */}
+              <div className="store-smoke store-smoke-1"
+                style={{ width: 220, height: 120, bottom: "22%", left: "20%" }} />
+              {/* Nuvem 2 */}
+              <div className="store-smoke store-smoke-2"
+                style={{ width: 180, height: 100, bottom: "28%", left: "38%" }} />
+              {/* Nuvem 3 */}
+              <div className="store-smoke store-smoke-3"
+                style={{ width: 140, height: 80, bottom: "18%", left: "55%" }} />
+            </div>
+
+            {/* ── Partículas leves ── */}
+            <div className="absolute inset-0 z-[26] pointer-events-none" aria-hidden="true">
+              {[
+                { left: "28%", bottom: "32%", delay: "0s",    dur: "3.2s", opacity: 0.7 },
+                { left: "42%", bottom: "28%", delay: "0.8s",  dur: "4.1s", opacity: 0.5 },
+                { left: "55%", bottom: "35%", delay: "1.5s",  dur: "3.6s", opacity: 0.6 },
+                { left: "33%", bottom: "24%", delay: "2.2s",  dur: "5.0s", opacity: 0.4 },
+                { left: "62%", bottom: "30%", delay: "0.4s",  dur: "3.9s", opacity: 0.55 },
+                { left: "48%", bottom: "20%", delay: "1.9s",  dur: "4.4s", opacity: 0.45 },
+              ].map((p, i) => (
+                <span
+                  key={i}
+                  className="store-particle"
+                  style={{
+                    left: p.left,
+                    bottom: p.bottom,
+                    opacity: p.opacity,
+                    animationDelay: p.delay,
+                    animationDuration: p.dur,
+                    boxShadow: "0 0 4px rgba(140,230,0,0.8)",
+                  }}
+                />
+              ))}
+            </div>
+
+            {/* ── Brilho refletido no chão ── */}
+            <div
+              className="store-ground-glow absolute inset-x-0 z-[27] pointer-events-none"
+              aria-hidden="true"
+              style={{
+                bottom: 0,
+                height: "14%",
+                background:
+                  "radial-gradient(ellipse 70% 100% at 50% 100%, rgba(140,230,0,0.18) 0%, rgba(140,230,0,0.06) 50%, transparent 100%)",
+              }}
+            />
+
             {/* Glow dos faróis verdes — radial posicionado no topo da moto (~58% do container) */}
             <div
               className="absolute inset-x-0 z-[3] pointer-events-none"
