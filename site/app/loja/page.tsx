@@ -8,7 +8,11 @@ import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
   title: "Loja",
-  description: "Produtos oficiais do Grupo Rolê da Gurizada. Compra via WhatsApp.",
+  description: "Produtos oficiais do Grupo Rolê da Gurizada. Moletom e mais. Compra via WhatsApp direto com a gurizada.",
+  openGraph: {
+    title: "Loja | Grupo Rolê da Gurizada",
+    description: "Produtos oficiais do Grupo Rolê da Gurizada. Compra via WhatsApp.",
+  },
 };
 
 export default async function Loja() {

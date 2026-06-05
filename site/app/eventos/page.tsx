@@ -5,7 +5,11 @@ import { getProximosEventos, formatarData } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Eventos",
-  description: "Concentrações e eventos do Grupo Rolê da Gurizada em Pelotas e região.",
+  description: "Concentrações e eventos do Grupo Rolê da Gurizada em Pelotas e região do RS.",
+  openGraph: {
+    title: "Eventos | Grupo Rolê da Gurizada",
+    description: "Concentrações e eventos do Grupo Rolê da Gurizada em Pelotas e região.",
+  },
 };
 
 export default async function Eventos() {

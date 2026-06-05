@@ -3,7 +3,11 @@ import { Section, SectionHeader } from "@/components/ui/Section";
 
 export const metadata: Metadata = {
   title: "A Gurizada",
-  description: "De onde vem o Grupo Rolê da Gurizada e o que a gente carrega na estrada.",
+  description: "De onde vem o Grupo Rolê da Gurizada e o que a gente carrega na estrada. União, respeito e liberdade desde Pelotas/RS.",
+  openGraph: {
+    title: "A Gurizada | Grupo Rolê da Gurizada",
+    description: "De onde vem o Grupo Rolê da Gurizada e o que a gente carrega na estrada.",
+  },
 };
 
 const valores = [

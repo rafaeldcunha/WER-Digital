@@ -8,7 +8,11 @@ import { waLink } from "@/config/site";
 
 export const metadata: Metadata = {
   title: "Parceiros",
-  description: "Lojas e serviços que apoiam a gurizada. Menciona o grupo e aproveita.",
+  description: "Lojas e serviços que apoiam o Grupo Rolê da Gurizada em Pelotas/RS. Gil Motos, Daniel Valente e mais.",
+  openGraph: {
+    title: "Parceiros | Grupo Rolê da Gurizada",
+    description: "Lojas e serviços que apoiam a gurizada. Menciona o grupo e aproveita.",
+  },
 };
 
 export default async function Parceiros() {

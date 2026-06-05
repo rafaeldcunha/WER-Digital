@@ -24,6 +24,7 @@ export const metadata: Metadata = {
     template: `%s | ${siteConfig.shortName}`,
   },
   description: siteConfig.description,
+  metadataBase: new URL(siteConfig.url),
   openGraph: {
     type: "website",
     locale: "pt_BR",
@@ -31,15 +32,31 @@ export const metadata: Metadata = {
     title: siteConfig.name,
     description: siteConfig.description,
     siteName: siteConfig.name,
+    images: [
+      {
+        url: siteConfig.ogImage,
+        width: 1200,
+        height: 630,
+        alt: siteConfig.name,
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: siteConfig.name,
     description: siteConfig.description,
+    images: [siteConfig.ogImage],
   },
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+    },
+  },
+  icons: {
+    icon: "/favicon.ico",
   },
 };
 
@@ -49,12 +66,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR">
+    <html lang="pt-BR" className="scroll-smooth">
       <body
-        className={`${archivoBlack.variable} ${inter.variable} bg-brand-black text-brand-white font-body antialiased`}
+        className={`${archivoBlack.variable} ${inter.variable} bg-brand-black text-brand-white font-body antialiased min-h-screen flex flex-col`}
       >
+        <a
+          href="#conteudo-principal"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:bg-neon focus:text-brand-black focus:px-4 focus:py-2 focus:rounded focus:font-display focus:text-sm"
+        >
+          Pular para o conteúdo
+        </a>
         <Navbar />
-        <main>{children}</main>
+        <main id="conteudo-principal" className="flex-1">
+          {children}
+        </main>
         <Footer />
       </body>
     </html>

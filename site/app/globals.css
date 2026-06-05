@@ -29,9 +29,28 @@
     letter-spacing: -0.02em;
   }
 
+  /* Foco visível para navegação por teclado — contraste mínimo WCAG AA */
+  :focus-visible {
+    outline: 2px solid #9BEC00;
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
   ::selection {
     background-color: #9BEC00;
     color: #0B0B0B;
+  }
+
+  /* Reduz motion pra quem preferir */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+    html {
+      scroll-behavior: auto;
+    }
   }
 
   ::-webkit-scrollbar {

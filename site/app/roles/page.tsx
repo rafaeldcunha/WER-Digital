@@ -7,7 +7,11 @@ import type { Role } from "@/lib/types";
 
 export const metadata: Metadata = {
   title: "Rolês e Viagens",
-  description: "Calendário de rolês e registro dos passeios do Grupo Rolê da Gurizada.",
+  description: "Calendário de rolês e registro dos passeios do Grupo Rolê da Gurizada em Pelotas e região do RS.",
+  openGraph: {
+    title: "Rolês e Viagens | Grupo Rolê da Gurizada",
+    description: "Calendário de rolês e registro dos passeios do Grupo Rolê da Gurizada.",
+  },
 };
 
 function RoleCard({ role }: { role: Role }) {
