@@ -66,14 +66,18 @@ export function StoreSection() {
             overflow-hidden
           ">
 
-            {/* z-index 2: watermark */}
-            <div className="absolute inset-0 z-[2] flex items-center justify-center">
-              <div className="relative w-4/5 h-4/5">
+            {/* z-index 2: watermark — centralizada, misturada ao background */}
+            <div className="absolute inset-0 z-[2] flex items-center justify-center pointer-events-none">
+              <div
+                className="relative"
+                style={{ width: "clamp(700px, 85%, 1000px)", aspectRatio: "1/1" }}
+              >
                 <Image
                   src={`${ASSETS}/watermark.png`}
                   alt=""
                   fill
-                  className="object-contain opacity-20"
+                  className="object-contain"
+                  style={{ opacity: 0.04, mixBlendMode: "screen" }}
                 />
               </div>
             </div>
