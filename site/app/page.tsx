@@ -3,7 +3,7 @@ import { Hero } from "@/components/sections/Hero";
 import { ProximosRolesSection } from "@/components/sections/ProximosRolesSection";
 import { QuemSomosPreview } from "@/components/sections/QuemSomosPreview";
 import { ParceirosPreview } from "@/components/sections/ParceirosPreview";
-import { LojaPreview } from "@/components/sections/LojaPreview";
+import { StoreSection } from "@/components/sections/StoreSection";
 import { getProximosRoles, getParceiros } from "@/lib/content";
 import { siteConfig } from "@/config/site";
 
@@ -24,7 +24,7 @@ export default async function Home() {
       <ProximosRolesSection roles={roles} />
       <QuemSomosPreview />
       <ParceirosPreview parceiros={parceiros} />
-      <LojaPreview />
+      <StoreSection />
     </>
   );
 }
