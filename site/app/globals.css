@@ -1,0 +1,81 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: #0B0B0B;
+    --foreground: #F2F2F2;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: #0B0B0B;
+    color: #F2F2F2;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-archivo-black), sans-serif;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+
+  ::selection {
+    background-color: #9BEC00;
+    color: #0B0B0B;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #141414;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #9BEC00;
+    border-radius: 3px;
+  }
+}
+
+@layer components {
+  .neon-line {
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #9BEC00, transparent);
+  }
+
+  .speed-lines {
+    background-image: repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 2px,
+      rgba(155, 236, 0, 0.03) 2px,
+      rgba(155, 236, 0, 0.03) 4px
+    );
+  }
+
+  .text-neon-glow {
+    text-shadow: 0 0 10px rgba(155, 236, 0, 0.7), 0 0 20px rgba(155, 236, 0, 0.4);
+  }
+
+  .border-neon-pulse {
+    border: 1px solid #9BEC00;
+    box-shadow: 0 0 8px rgba(155, 236, 0, 0.3);
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: var(--font-archivo-black), sans-serif;
+  }
+}
