@@ -4,80 +4,76 @@
 
 @layer base {
   :root {
-    --background: #0B0B0B;
-    --foreground: #F2F2F2;
+    --background: #070707;
+    --foreground: #F4F5F2;
   }
 
-  * {
-    box-sizing: border-box;
-  }
+  * { box-sizing: border-box; }
 
-  html {
-    scroll-behavior: smooth;
-  }
+  html { scroll-behavior: smooth; }
 
   body {
-    background-color: #0B0B0B;
-    color: #F2F2F2;
+    background-color: #070707;
+    color: #F4F5F2;
+    font-family: var(--font-hanken), sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-archivo-black), sans-serif;
+    font-family: var(--font-saira), sans-serif;
     line-height: 1.1;
-    letter-spacing: -0.02em;
   }
 
-  /* Foco visível para navegação por teclado — contraste mínimo WCAG AA */
+  ::selection {
+    background-color: #8CE600;
+    color: #070707;
+  }
+
   :focus-visible {
-    outline: 2px solid #9BEC00;
+    outline: 2px solid #8CE600;
     outline-offset: 3px;
     border-radius: 2px;
   }
 
-  ::selection {
-    background-color: #9BEC00;
-    color: #0B0B0B;
-  }
-
-  /* Reduz motion pra quem preferir */
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
     }
-    html {
-      scroll-behavior: auto;
-    }
-    /* Hero: esconde vídeo e exibe imagem estática */
-    .hero-video {
-      display: none !important;
-    }
-    .hero-poster {
-      display: block !important;
-    }
+    html { scroll-behavior: auto; }
+    .hero-video { display: none !important; }
+    .hero-poster { display: block !important; }
   }
 
-  ::-webkit-scrollbar {
-    width: 6px;
+  /* Mobile: hero padding ajustado */
+  @media (max-width: 760px) {
+    .hero-wrap { padding-top: 130px !important; }
+    /*
+      Performance mobile: se hero.mp4 > 8MB, crie hero-mobile.mp4 (720p)
+      e adicione um <source> com media="(max-width:760px)" no componente Hero.
+    */
   }
 
-  ::-webkit-scrollbar-track {
-    background: #141414;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background: #9BEC00;
-    border-radius: 3px;
-  }
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: #111111; }
+  ::-webkit-scrollbar-thumb { background: #8CE600; border-radius: 3px; }
 }
 
 @layer components {
   .neon-line {
     height: 2px;
-    background: linear-gradient(90deg, transparent, #9BEC00, transparent);
+    background: linear-gradient(90deg, transparent, #8CE600, transparent);
+  }
+
+  .text-neon-glow {
+    text-shadow: 0 0 10px rgba(140, 230, 0, 0.7), 0 0 20px rgba(140, 230, 0, 0.4);
+  }
+
+  .border-neon-pulse {
+    border: 1px solid #8CE600;
+    box-shadow: 0 0 8px rgba(140, 230, 0, 0.3);
   }
 
   .speed-lines {
@@ -85,23 +81,14 @@
       90deg,
       transparent,
       transparent 2px,
-      rgba(155, 236, 0, 0.03) 2px,
-      rgba(155, 236, 0, 0.03) 4px
+      rgba(140, 230, 0, 0.03) 2px,
+      rgba(140, 230, 0, 0.03) 4px
     );
-  }
-
-  .text-neon-glow {
-    text-shadow: 0 0 10px rgba(155, 236, 0, 0.7), 0 0 20px rgba(155, 236, 0, 0.4);
-  }
-
-  .border-neon-pulse {
-    border: 1px solid #9BEC00;
-    box-shadow: 0 0 8px rgba(155, 236, 0, 0.3);
   }
 }
 
 @layer utilities {
-  .font-display {
-    font-family: var(--font-archivo-black), sans-serif;
-  }
+  .font-display { font-family: var(--font-saira), sans-serif; }
+  .font-body    { font-family: var(--font-hanken), sans-serif; }
+  .font-mono    { font-family: var(--font-mono), monospace; }
 }

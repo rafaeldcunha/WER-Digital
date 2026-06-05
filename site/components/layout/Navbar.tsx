@@ -3,11 +3,10 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Button } from "@/components/ui/Button";
 import { waLink } from "@/config/site";
 
 const navLinks = [
-  { href: "/a-gurizada", label: "A Gurizada" },
+  { href: "/a-gurizada", label: "O Grupo" },
   { href: "/roles", label: "Rolês" },
   { href: "/eventos", label: "Eventos" },
   { href: "/parceiros", label: "Parceiros" },
@@ -18,75 +17,71 @@ export function Navbar() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 bg-brand-surface/90 backdrop-blur-md border-b border-brand-border">
-      <div className="mx-auto max-w-6xl px-4 md:px-8 h-16 flex items-center justify-between">
-        {/* Logo — substituir /logos/logo-grupo.png pela imagem real */}
-        <Link href="/" className="flex items-center gap-3 shrink-0" aria-label="Grupo Rolê da Gurizada — Home">
-          <div className="w-10 h-10 rounded-sm bg-brand-border flex items-center justify-center overflow-hidden">
-            <Image
-              src="/logos/logo-grupo.png"
-              alt=""
-              width={40}
-              height={40}
-              className="w-10 h-10 object-contain"
-              priority
-              onError={() => {}}
-            />
+    <header className="absolute top-0 left-0 right-0 z-[5]">
+      <div
+        className="flex items-center justify-between"
+        style={{ padding: "24px clamp(20px,4vw,64px)" }}
+      >
+        {/* Brand */}
+        <Link
+          href="/"
+          className="flex items-center gap-[13px] shrink-0"
+          aria-label="Grupo Rolê da Gurizada — Home"
+        >
+          <Image
+            src="/logos/logo-grupo.png"
+            alt="Grupo Rolê da Gurizada"
+            width={40}
+            height={40}
+            className="h-10 w-auto rounded-[4px]"
+            style={{ filter: "drop-shadow(0 0 12px rgba(140,230,0,.3))" }}
+            priority
+          />
+          <div
+            className="font-display italic font-black text-[19px] leading-[.88] tracking-[.5px] uppercase text-brand-white"
+            style={{ textShadow: "0 2px 12px rgba(0,0,0,.8)" }}
+          >
+            Role<br /><span className="text-neon">da Gurizada</span>
           </div>
-          <span className="font-display text-brand-white text-sm uppercase tracking-wide leading-tight">
-            Rolê da<br />Gurizada
-          </span>
         </Link>
 
         {/* Links desktop */}
-        <nav className="hidden md:flex items-center gap-6" aria-label="Navegação principal">
+        <nav className="hidden md:flex items-center gap-8" aria-label="Navegação principal">
           {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className="text-brand-gray hover:text-neon text-sm font-body transition-colors duration-150"
+              className="text-brand-white text-sm font-body font-medium opacity-90 hover:opacity-100 hover:text-neon transition-all duration-200"
+              style={{ textShadow: "0 1px 10px rgba(0,0,0,.7)" }}
             >
               {link.label}
             </Link>
           ))}
+          <span
+            className="font-mono font-bold text-xs text-neon tracking-[2px] border px-3 py-1.5 rounded-full"
+            style={{ borderColor: "rgba(140,230,0,.5)", backdropFilter: "blur(2px)" }}
+          >
+            PELOTAS / RS
+          </span>
         </nav>
-
-        {/* CTA desktop */}
-        <div className="hidden md:block">
-          <Button href={waLink("entrar")} size="sm">
-            Quero andar
-          </Button>
-        </div>
 
         {/* Hamburger mobile */}
         <button
-          className="md:hidden flex flex-col gap-1.5 p-2 -mr-2"
+          className="md:hidden flex flex-col gap-1.5 p-2"
           aria-label={open ? "Fechar menu" : "Abrir menu"}
           aria-expanded={open}
           onClick={() => setOpen(!open)}
         >
-          <span
-            className={`block h-0.5 w-6 bg-brand-white transition-transform duration-200 ${
-              open ? "translate-y-2 rotate-45" : ""
-            }`}
-          />
-          <span
-            className={`block h-0.5 w-6 bg-brand-white transition-opacity duration-200 ${
-              open ? "opacity-0" : ""
-            }`}
-          />
-          <span
-            className={`block h-0.5 w-6 bg-brand-white transition-transform duration-200 ${
-              open ? "-translate-y-2 -rotate-45" : ""
-            }`}
-          />
+          <span className={`block h-0.5 w-6 bg-brand-white transition-transform duration-200 ${open ? "translate-y-2 rotate-45" : ""}`} />
+          <span className={`block h-0.5 w-6 bg-brand-white transition-opacity duration-200 ${open ? "opacity-0" : ""}`} />
+          <span className={`block h-0.5 w-6 bg-brand-white transition-transform duration-200 ${open ? "-translate-y-2 -rotate-45" : ""}`} />
         </button>
       </div>
 
       {/* Drawer mobile */}
       {open && (
-        <div className="md:hidden bg-brand-surface border-t border-brand-border">
-          <nav className="flex flex-col px-4 py-4 gap-1" aria-label="Menu mobile">
+        <div className="md:hidden bg-brand-black/95 backdrop-blur-md border-t border-brand-border">
+          <nav className="flex flex-col px-6 py-4 gap-1" aria-label="Menu mobile">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
@@ -98,13 +93,15 @@ export function Navbar() {
               </Link>
             ))}
             <div className="pt-4">
-              <Button
+              <a
                 href={waLink("entrar")}
-                className="w-full justify-center"
+                target="_blank"
+                rel="noopener noreferrer"
                 onClick={() => setOpen(false)}
+                className="block w-full text-center font-mono font-bold text-sm uppercase tracking-[1.5px] px-6 py-4 rounded-md bg-neon text-[#0a0a0a]"
               >
                 Quero andar com a gurizada
-              </Button>
+              </a>
             </div>
           </nav>
         </div>

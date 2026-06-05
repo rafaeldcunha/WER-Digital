@@ -1,88 +1,114 @@
-import { Button } from "@/components/ui/Button";
 import { waLink } from "@/config/site";
 
 export function Hero() {
   return (
-    <section className="relative min-h-[90vh] flex items-center overflow-hidden bg-brand-black">
-
+    <section
+      className="relative w-full overflow-hidden isolate"
+      style={{ height: "100svh", minHeight: "600px" }}
+    >
       {/* ── Camada 0: vídeo de fundo ── */}
-      <div className="absolute inset-0 z-0" aria-hidden="true">
-
-        {/*
-          Mobile performance: o arquivo /images/hero.mp4 é servido em todas as telas.
-          Se o vídeo for maior que ~8 MB, gere uma versão reduzida (720p, ~2 Mbps)
-          e use <source> com media query:
-            <source src="/images/hero-mobile.mp4" media="(max-width:760px)" type="video/mp4" />
-            <source src="/images/hero.mp4" type="video/mp4" />
-        */}
-        <video
-          src="/images/hero.mp4"
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-          poster="/images/hero-poster.jpg"
-          className="hero-video absolute inset-0 w-full h-full object-cover"
-          style={{ objectPosition: "center 56%" }}
-        />
-
-        {/* Fallback estático (visível só com prefers-reduced-motion) */}
-        <div
-          className="hero-poster absolute inset-0 bg-cover bg-center hidden"
-          style={{ backgroundImage: "url('/images/hero-poster.jpg')", backgroundPosition: "center 56%" }}
-        />
-
-        {/* Overlay escuro pra texto legível */}
-        <div className="absolute inset-0 bg-brand-black/60" />
-        {/* Linhas de velocidade sutis */}
-        <div className="absolute inset-0 speed-lines opacity-20" />
-        {/* Gradiente de baixo */}
-        <div className="absolute bottom-0 inset-x-0 h-48 bg-gradient-to-t from-brand-black to-transparent" />
-        {/* Brilho neon central sutil */}
-        <div className="absolute inset-0 bg-neon-glow opacity-10" />
-      </div>
-
-      {/* Linha vermelha de velocidade (acento) */}
+      <video
+        src="/images/hero.mp4"
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
+        poster="/images/hero-poster.jpg"
+        aria-hidden="true"
+        className="hero-video absolute inset-0 w-full h-full object-cover"
+        style={{ objectPosition: "center 56%" }}
+      />
+      {/* Fallback estático para prefers-reduced-motion */}
       <div
-        className="absolute top-1/2 left-0 right-0 h-px bg-gradient-to-r from-transparent via-brand-red to-transparent opacity-30 z-10"
+        className="hero-poster absolute inset-0 hidden bg-cover bg-center"
+        style={{
+          backgroundImage: "url('/images/hero-poster.jpg')",
+          backgroundPosition: "center 56%",
+        }}
         aria-hidden="true"
       />
 
-      {/* ── Conteúdo sobreposto ── */}
-      <div className="relative z-10 mx-auto max-w-6xl px-4 md:px-8 py-24">
-        <p className="text-neon text-xs uppercase tracking-widest font-body font-semibold mb-6">
-          Pelotas / RS
-        </p>
+      {/* ── Camada 1: overlays de legibilidade ── */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          zIndex: 1,
+          background: `
+            radial-gradient(120% 80% at 50% 38%, transparent 55%, rgba(7,7,7,.45) 100%),
+            linear-gradient(to bottom, rgba(7,7,7,.6) 0%, rgba(7,7,7,0) 22%),
+            linear-gradient(to top, rgba(7,7,7,.82) 0%, rgba(7,7,7,0) 26%)
+          `,
+        }}
+        aria-hidden="true"
+      />
 
-        <h1 className="font-display text-5xl md:text-7xl lg:text-8xl text-brand-white leading-none mb-2 max-w-3xl">
-          Aqui não importa
-          <br />a cilindrada.
-        </h1>
-        <p className="font-display text-5xl md:text-7xl lg:text-8xl text-neon text-neon-glow leading-none mb-8 max-w-3xl">
-          O que vale é
-          <br />a parceria.
-        </p>
+      {/* ── Camada 2: grain ── */}
+      <div
+        className="absolute inset-0 pointer-events-none opacity-[.05]"
+        style={{
+          zIndex: 2,
+          backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
+        }}
+        aria-hidden="true"
+      />
 
-        <p className="text-brand-gray text-base md:text-lg font-body max-w-md mb-10 leading-relaxed">
-          A gurizada de Pelotas que anda junta, viaja junto e cuida de quem tá na estrada.
-        </p>
+      {/* ── Camada 4: conteúdo ── */}
+      <div
+        className="relative flex flex-col items-center justify-between text-center h-full"
+        style={{
+          zIndex: 4,
+          padding: "118px clamp(20px,4vw,64px) 52px",
+        }}
+      >
+        {/* Topo: eyebrow + headline */}
+        <div className="flex flex-col items-center">
+          <p
+            className="font-mono font-bold uppercase tracking-[4px] text-neon text-[13px] mb-[18px] animate-reveal-1"
+            style={{ textShadow: "0 2px 14px rgba(0,0,0,.9)" }}
+          >
+            Grupo de moto · Pelotas / RS
+          </p>
 
-        <div className="flex flex-col sm:flex-row gap-4">
-          <Button href="/roles" size="lg">
+          <h1
+            className="font-display italic font-black uppercase leading-[.9] tracking-tight animate-reveal-2"
+            style={{
+              fontSize: "clamp(40px,7vw,104px)",
+              textWrap: "balance",
+              textShadow: "0 3px 26px rgba(0,0,0,.92), 0 0 70px rgba(0,0,0,.7)",
+            }}
+          >
+            Aqui não importa
+            <br />a cilindrada.
+            <br />
+            <span
+              className="text-neon"
+              style={{ textShadow: "0 3px 26px rgba(0,0,0,.85), 0 0 50px rgba(140,230,0,.45)" }}
+            >
+              O que vale é a parceria.
+            </span>
+          </h1>
+        </div>
+
+        {/* Base: botões */}
+        <div className="flex flex-wrap gap-[15px] justify-center animate-reveal-4">
+          <a
+            href="/roles"
+            className="font-mono font-bold text-sm uppercase tracking-[1.5px] no-underline px-[30px] py-[17px] rounded-md transition-all duration-200 bg-neon text-[#0a0a0a] border border-neon hover:bg-neon-bright hover:shadow-neon hover:-translate-y-0.5"
+          >
             Ver o próximo rolê
-          </Button>
-          <Button href={waLink("entrar")} variant="secondary" size="lg">
+          </a>
+          <a
+            href={waLink("entrar")}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-mono font-bold text-sm uppercase tracking-[1.5px] no-underline px-[30px] py-[17px] rounded-md transition-all duration-200 text-neon border border-neon hover:bg-neon/16 hover:-translate-y-0.5"
+            style={{ background: "rgba(7,7,7,.45)", backdropFilter: "blur(3px)" }}
+          >
             Quero andar com a gurizada
-          </Button>
+          </a>
         </div>
       </div>
-
-      {/* Linha neon no rodapé do hero */}
-      <div
-        className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-neon to-transparent z-10"
-        aria-hidden="true"
-      />
     </section>
   );
 }
