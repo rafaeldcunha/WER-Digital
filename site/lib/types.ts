@@ -1,11 +1,11 @@
 export interface Role {
   id: string;
   titulo: string;
-  data: string; // ISO 8601
+  data: string;
   pontoEncontro: string;
   destino: string;
-  descricao?: string;
-  imagem?: string;
+  descricao?: string | null;
+  imagem?: string | null;
   status: "agendado" | "realizado" | "cancelado";
 }
 
@@ -14,27 +14,27 @@ export interface Evento {
   titulo: string;
   data: string;
   local: string;
-  descricao?: string;
-  imagem?: string;
-  link?: string;
+  descricao?: string | null;
+  imagem?: string | null;
+  link?: string | null;
 }
 
 export interface Parceiro {
   id: string;
   nome: string;
   descricao: string;
-  beneficio?: string;
+  beneficio?: string | null;
   logo: string;
-  link?: string;
-  instagram?: string;
+  link?: string | null;
+  instagram?: string | null;
 }
 
 export interface Produto {
   id: string;
   nome: string;
   descricao: string;
-  preco?: string;
-  variacoes?: string[];
-  imagem?: string;
+  preco?: string | null;
+  variacoes?: string[] | null;
+  imagem?: string | null;
   disponivel: boolean;
 }

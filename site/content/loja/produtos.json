@@ -1,1 +1,12 @@
-[]
+[
+  {
+    "id": "moletom-grupo",
+    "nome": "Moletom Grupo Rolê da Gurizada",
+    "descricao": "Moletom oficial do grupo. Estampa do logo na frente, Pelotas/RS nas costas. Algodão pesado, quente pra rodar no inverno gaúcho.",
+    "preco": null,
+    "variacoes": ["P", "M", "G", "GG", "XGG"],
+    "imagem": null,
+    "disponivel": true,
+    "_placeholder_notes": "Preencher: preço real do moletom e caminho da foto em /public/images/moletom.jpg"
+  }
+]

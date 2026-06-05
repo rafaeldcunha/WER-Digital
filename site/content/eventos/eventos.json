@@ -1,1 +1,18 @@
-[]
+[
+  {
+    "id": "exemplo-encontro-julio",
+    "titulo": "Encontro de Motos de Pelotas",
+    "data": "2026-07-19",
+    "local": "[EXEMPLO] Praça Coronel Pedro Osório — Centro, Pelotas/RS",
+    "descricao": "Concentração aberta pra todos os pilotos da região. A gurizada vai em peso. Aparece.",
+    "link": null
+  },
+  {
+    "id": "exemplo-moto-sul",
+    "titulo": "MotoSul 2026",
+    "data": "2026-10-10",
+    "local": "[EXEMPLO] Parque de Exposições — Pelotas/RS",
+    "descricao": "Um dos maiores encontros de motos do Rio Grande do Sul. A gurizada participa todo ano.",
+    "link": null
+  }
+]

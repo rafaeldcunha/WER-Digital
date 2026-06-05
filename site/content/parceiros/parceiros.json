@@ -1,1 +1,22 @@
-[]
+[
+  {
+    "id": "gil-motos",
+    "nome": "Gil Motos",
+    "descricao": "Loja de motos e peças em Pelotas/RS. Parceiro oficial da gurizada na hora de manter a moto na estrada.",
+    "beneficio": null,
+    "logo": "/logos/logo-gil-motos.png",
+    "link": null,
+    "instagram": null,
+    "_placeholder_notes": "Preencher: link do site ou Instagram da Gil Motos + benefício/desconto pra membros do grupo"
+  },
+  {
+    "id": "daniel-valente",
+    "nome": "Daniel Valente Produtos",
+    "descricao": "Especialista em detailing e conservação de motos em Pelotas/RS. Deixa a máquina pronta pra qualquer rolê.",
+    "beneficio": null,
+    "logo": "/logos/logo-daniel-valente.png",
+    "link": null,
+    "instagram": null,
+    "_placeholder_notes": "Preencher: Instagram ou site do Daniel Valente + benefício/desconto pra membros do grupo"
+  }
+]

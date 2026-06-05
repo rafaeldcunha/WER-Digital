@@ -1,1 +1,32 @@
-[]
+[
+  {
+    "id": "exemplo-role-lagoa",
+    "titulo": "Volta da Lagoa",
+    "data": "2026-07-05",
+    "pontoEncontro": "[EXEMPLO] Posto Shell — Av. Bento Gonçalves, Pelotas",
+    "destino": "[EXEMPLO] Lagoa dos Patos — orla de São Lourenço do Sul",
+    "descricao": "Rolê de sábado pela orla. Saída cedo, almoço no caminho e volta à tarde. Aberto pra todo mundo.",
+    "imagem": null,
+    "status": "agendado"
+  },
+  {
+    "id": "exemplo-role-serras",
+    "titulo": "Serras Gaúchas",
+    "data": "2026-08-02",
+    "pontoEncontro": "[EXEMPLO] Posto Ipiranga — BR-116, Pelotas",
+    "destino": "[EXEMPLO] Gramado/Canela — via Serra Gaúcha",
+    "descricao": "Viagem de fim de semana pelas serras. Dois dias, uma noite. Vagas limitadas — confirma no grupo.",
+    "imagem": null,
+    "status": "agendado"
+  },
+  {
+    "id": "exemplo-role-realizado",
+    "titulo": "Rolê da Primavera",
+    "data": "2025-09-21",
+    "pontoEncontro": "[EXEMPLO] Praça Coronel Pedro Osório, Pelotas",
+    "destino": "[EXEMPLO] Pelotas — Canguçu — Pelotas",
+    "descricao": "Primeiro rolê oficial do grupo. Tarde de domingo, estrada aberta e muita parceria.",
+    "imagem": null,
+    "status": "realizado"
+  }
+]
