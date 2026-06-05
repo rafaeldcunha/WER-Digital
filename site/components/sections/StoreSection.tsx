@@ -76,15 +76,33 @@ export function StoreSection() {
               </div>
             </div>
 
-            {/* z-index 3: moto-escura */}
-            <div className="absolute inset-x-0 bottom-0 z-[3] h-3/5">
+            {/* z-index 3: moto-escura
+                Posicionada para que os faróis (topo da moto) fiquem na altura
+                da cintura do piloto (~58% a partir do topo da seção).
+                A moto ocupa ~55% da altura, ancorada em top: 30% → base em ~85%. */}
+            <div
+              className="absolute inset-x-0 z-[3]"
+              style={{ top: "30%", bottom: "0", opacity: 0.82 }}
+            >
               <Image
                 src={`${ASSETS}/moto-escura.png`}
                 alt=""
                 fill
-                className="object-contain object-bottom"
+                className="object-contain object-top"
               />
             </div>
+
+            {/* Glow dos faróis verdes — radial posicionado no topo da moto (~58% do container) */}
+            <div
+              className="absolute inset-x-0 z-[3] pointer-events-none"
+              style={{
+                top: "50%",
+                height: "18%",
+                background:
+                  "radial-gradient(ellipse 60% 80% at 50% 20%, rgba(140,230,0,0.22) 0%, rgba(140,230,0,0.07) 55%, transparent 100%)",
+              }}
+              aria-hidden="true"
+            />
 
             {/* z-index 4: piloto-moletom */}
             <div className="absolute inset-x-0 bottom-0 z-[4]" style={{ top: "-10%" }}>
