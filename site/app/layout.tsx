@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Archivo_Black, Inter } from "next/font/google";
 import "./globals.css";
 import { siteConfig } from "@/config/site";
+import { Navbar } from "@/components/layout/Navbar";
+import { Footer } from "@/components/layout/Footer";
 
 const archivoBlack = Archivo_Black({
   weight: "400",
@@ -51,7 +53,9 @@ export default function RootLayout({
       <body
         className={`${archivoBlack.variable} ${inter.variable} bg-brand-black text-brand-white font-body antialiased`}
       >
-        {children}
+        <Navbar />
+        <main>{children}</main>
+        <Footer />
       </body>
     </html>
   );
