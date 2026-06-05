@@ -51,6 +51,13 @@
     html {
       scroll-behavior: auto;
     }
+    /* Hero: esconde vídeo e exibe imagem estática */
+    .hero-video {
+      display: none !important;
+    }
+    .hero-poster {
+      display: block !important;
+    }
   }
 
   ::-webkit-scrollbar {
