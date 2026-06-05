@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Hero } from "@/components/sections/Hero";
-import { ProximosRolesPreview } from "@/components/sections/ProximosRolesPreview";
+import { ProximosRolesSection } from "@/components/sections/ProximosRolesSection";
 import { QuemSomosPreview } from "@/components/sections/QuemSomosPreview";
 import { ParceirosPreview } from "@/components/sections/ParceirosPreview";
 import { LojaPreview } from "@/components/sections/LojaPreview";
@@ -21,7 +21,7 @@ export default async function Home() {
   return (
     <>
       <Hero />
-      <ProximosRolesPreview roles={roles} />
+      <ProximosRolesSection roles={roles} />
       <QuemSomosPreview />
       <ParceirosPreview parceiros={parceiros} />
       <LojaPreview />
