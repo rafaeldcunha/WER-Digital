@@ -4,25 +4,29 @@ import { waLink } from "@/config/site";
 export function Hero() {
   return (
     <section className="relative min-h-[90vh] flex items-center overflow-hidden bg-brand-black">
-      {/* Fundo: placeholder de foto real */}
-      <div
-        className="absolute inset-0 bg-brand-black"
-        aria-hidden="true"
-      >
-        {/* [PLACEHOLDER] Substituir pelo fundo abaixo quando tiver foto real:
-            <Image src="/images/hero-estrada.jpg" alt="" fill className="object-cover opacity-30" priority />
-        */}
-        {/* Overlay escuro com linhas de velocidade */}
-        <div className="absolute inset-0 speed-lines opacity-40" />
+      {/* Vídeo de fundo */}
+      <div className="absolute inset-0" aria-hidden="true">
+        <video
+          src="/images/hero.mp4"
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        {/* Overlay escuro pra texto legível sobre o vídeo */}
+        <div className="absolute inset-0 bg-brand-black/60" />
+        {/* Linhas de velocidade sutis */}
+        <div className="absolute inset-0 speed-lines opacity-20" />
         {/* Gradiente de baixo */}
         <div className="absolute bottom-0 inset-x-0 h-48 bg-gradient-to-t from-brand-black to-transparent" />
         {/* Brilho neon central sutil */}
-        <div className="absolute inset-0 bg-neon-glow opacity-20" />
+        <div className="absolute inset-0 bg-neon-glow opacity-10" />
       </div>
 
       {/* Linha vermelha de velocidade (acento) */}
       <div
-        className="absolute top-1/2 left-0 right-0 h-px bg-gradient-to-r from-transparent via-brand-red to-transparent opacity-40"
+        className="absolute top-1/2 left-0 right-0 h-px bg-gradient-to-r from-transparent via-brand-red to-transparent opacity-30"
         aria-hidden="true"
       />
 
