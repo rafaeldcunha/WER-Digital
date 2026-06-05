@@ -73,13 +73,17 @@ export function StoreSection() {
               />
             </div>
 
-            {/* z-index 4: piloto-moletom */}
-            <div className="absolute inset-x-0 bottom-0 z-[4] h-5/6">
+            {/* z-index 4: piloto-moletom
+                +30% de tamanho: extrapola o topo (top: -10%) pra cabeça ficar próxima
+                ao topo da seção. Pés tocam a base (bottom: 0). Proporção preservada
+                via object-contain. overflow-hidden no painel pai contém o excesso. */}
+            <div className="absolute inset-x-0 bottom-0 z-[4]" style={{ top: "-10%" }}>
               <Image
                 src={`${ASSETS}/piloto-moletom.png`}
                 alt="Piloto com moletom do Grupo Rolê da Gurizada"
                 fill
                 className="object-contain object-bottom"
+                style={{ objectPosition: "center bottom" }}
               />
             </div>
 
